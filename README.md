@@ -6,7 +6,7 @@ Developed by ohayashi
 
 javaを使用できる環境にて
 ```
-java -jar CsvToGpx
+java -jar CsvToGpx.jar
 ```
 で起動します。
 ```
