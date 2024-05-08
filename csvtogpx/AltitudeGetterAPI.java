@@ -15,7 +15,6 @@ public class AltitudeGetterAPI {
 
     public double getAltitude(double lat, double lon) {
         String url = urlBase + "lon=" + lon + "&lat=" + lat + "&outtype=JSON";
-        // System.out.println(url);
         HttpRequest request = HttpRequest.newBuilder()
                 .uri(URI.create(url)).GET().build();
 

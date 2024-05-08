@@ -49,7 +49,7 @@ class CsvToGpx {
      * @param args
      */
     public static void main(String[] args) {
-        System.out.println("CsvEdit ver 20240507");
+        System.out.println("CsvEdit ver 20240508");
         scanner = new Scanner(System.in);
 
         sortArgs(args);
@@ -181,13 +181,14 @@ class CsvToGpx {
                 }
 
                 // gpxに変換
-                Transformer tf = TransformerFactory.newInstance().newTransformer();
-                tf.setOutputProperty("indent", "no");
+
                 String gpxPath = outputFileName.gpx();
                 System.out.println("\nwritnig to " + gpxPath);
                 File gpx = new File(gpxPath);
                 if (!gpx.exists())
                     gpx.createNewFile();
+                Transformer tf = TransformerFactory.newInstance().newTransformer();
+                tf.setOutputProperty("indent", "no");
                 tf.transform(new DOMSource(doc), new StreamResult(gpx));
                 /*
                  * gpxここで変換しちゃダメでは？と思うが変換に成功している
@@ -218,7 +219,8 @@ class CsvToGpx {
 
         System.out.print("sorted args = ");
         for (String string : args)
-            System.out.print(string + ", ");
+            if (string.endsWith(".csv"))
+                System.out.print(string + ", ");
         System.out.println("\b\b");
     }
 
@@ -244,7 +246,7 @@ class CsvToGpx {
 
         System.out.print("Get altitude every ? points >>> ");
         skipAltitudeGetter = Integer.parseInt(scanner.nextLine());
-        
+
         System.out.print("Do you want CSV file? (y:n) >>> ");
         wantCSV = scanner.nextLine().equals("y");
         if (wantCSV == true) {
