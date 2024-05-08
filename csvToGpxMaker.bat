@@ -1,6 +1,6 @@
 @echo off
 
-set APP_DIR=CsvToGpx
+set APP_DIR=csvtogpx
 set JAR_NAME=CsvToGpx.jar
 set MAN_NAME=%APP_DIR%\CsvToGpx.mani
 set MAIN_CLASS=CsvToGpx
