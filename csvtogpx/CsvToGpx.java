@@ -49,7 +49,7 @@ class CsvToGpx {
      * @param args
      */
     public static void main(String[] args) {
-        System.out.println("CsvEdit ver 20240508");
+        System.out.println("CsvEdit ver 20240509");
         scanner = new Scanner(System.in);
 
         sortArgs(args);
@@ -71,7 +71,7 @@ class CsvToGpx {
 
             AltitudeGetterAPI api = new AltitudeGetterAPI(); // ここで用意する
             int segment = -1;
-            int segmentLimit = Tool.SEGMENT_LIMIT_MIN;
+            int segmentLimit = Tool.SEGMENT_LIMIT_MIN_SEC;
             int lastTime = 0;
 
             Document doc = DocumentBuilderFactory.newInstance().newDocumentBuilder().newDocument();

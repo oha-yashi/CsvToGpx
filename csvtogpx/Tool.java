@@ -7,16 +7,18 @@ import java.io.InputStreamReader;
 import java.math.BigDecimal;
 import java.math.RoundingMode;
 import java.time.Instant;
-import java.time.ZoneId;
+import java.time.temporal.ChronoUnit;
 
 public class Tool {
     final static String MY_NAME = "ohayashi";
 
     final static int FIT_TIME_ZERO = 631065600;
-    final static String POW2_31 = String.valueOf(Math.pow(2, 31));
+    final static double POW2_31 = 0x80000000L; // 1000 0000 0000 0000 0000 0000 0000 0000 (2)
+    final static double POSITION_CONVERT_CONST = 180.0 / POW2_31;
+    final static double POW10_8 = 100000000;
     final static int SHRINK_DEFAULT = 5;
     final static boolean WANT_CSV_DEFAULT = false;
-    final static int SEGMENT_LIMIT_MIN = 300;
+    final static int SEGMENT_LIMIT_MIN_SEC = 300;
 
     /**
      * 読み込むcsvの1行のサイズ（実測値）
@@ -50,15 +52,16 @@ public class Tool {
      * @param timestamp by FIT
      * @return yyyy-MM-dd hh:mm:ss (Tokyo)
      */
-    public static String fitTimeToTokyo(int timestamp){
-        Instant instant = Instant.ofEpochSecond(timestamp + FIT_TIME_ZERO);
-        return instant.atZone(ZoneId.of("Asia/Tokyo")).toString().replace("T"," ").replaceAll("\\+.*","");
+    public static String fitTimeToTokyo(int timestamp) {
+        Instant instant = Instant.ofEpochSecond(timestamp + FIT_TIME_ZERO).plus(9,ChronoUnit.HOURS);
+        return instant.toString().replaceAll("[TZ]", " ").trim();
     }
+
     /**
      * @param timestamp by FIT
      * @return yyyy-MM-dd hh:mm:ss (UTC)
      */
-    public static String fitTimeToUTC(int timestamp){
+    public static String fitTimeToUTC(int timestamp) {
         Instant instant = Instant.ofEpochSecond(timestamp + FIT_TIME_ZERO);
         return instant.toString();
     }
@@ -78,15 +81,22 @@ public class Tool {
         return bd;
     }
 
+    public static Double positionConvert(double pos) {
+        double deg = 0.0;
+        deg = pos * POSITION_CONVERT_CONST;
+        deg = ((double) Math.round(deg * POW10_8)) / POW10_8;
+        return deg;
+    }
+
     /**
      * https://qiita.com/atmospheri/items/8cee0cc2ab7de5a9b46e
      */
-    public static void openHelp(){
+    public static void openHelp() {
         String path = "com/ohayashi/csvtogpx/help.txt";
         InputStream is = ClassLoader.getSystemResourceAsStream(path);
         try (BufferedReader br = new BufferedReader(new InputStreamReader(is, "UTF-8"))) {
             String line;
-            while ((line = br.readLine()) !=null) {
+            while ((line = br.readLine()) != null) {
                 System.out.println(line);
             }
         } catch (IOException e) {

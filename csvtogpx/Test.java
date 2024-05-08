@@ -6,29 +6,21 @@ package csvtogpx;
 import java.io.IOException;
 import java.util.Arrays;
 
+
 public class Test {
     static final int FIT_EPOCH_MS = 631065600;
     public static void main(String[] args) throws IOException {
-
-        // String[] ss = {"adc", "abc", "fad", "acb", "edf"};
-        // openSS(ss);
-        // sortSS(ss);
-        // openSS(ss);
-
-        // String s = "";
-        // Scanner scanner = new Scanner(System.in);
-        // while (s.isEmpty()) {
-        //     System.out.println("s.isEmpty");
-        //     System.out.println("input >>> ");
-        //     s = scanner.nextLine();
-        // }
-        // System.out.println("s = " + s);
-        // scanner.close();
 
         int timestamp = 1082442840;
         String tokyo = Tool.fitTimeToTokyo(timestamp);
         System.out.println(tokyo);
         System.out.println(Tool.fitTimeToUTC(timestamp));
+
+        System.out.println(String.valueOf(2/3.0));
+
+        double d = 422830688;
+        System.out.println(Tool.positionConvert(String.valueOf(d)));
+        System.out.println(Tool.positionConvert(d));
     }
 
     public static void openSS(String[] ss){
