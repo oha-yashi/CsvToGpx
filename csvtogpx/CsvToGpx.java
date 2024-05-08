@@ -3,7 +3,6 @@ package csvtogpx;
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
-import java.math.BigDecimal;
 import java.util.Arrays;
 import java.util.Scanner;
 import javax.xml.parsers.DocumentBuilderFactory;
@@ -135,17 +134,17 @@ class CsvToGpx {
 
                             // 緯度 = latitude
                             String Lat = data[Tool.COL.POSITION_LAT].replace("\"", "");
-                            BigDecimal lat = Tool.positionConvert(Lat);
+                            double latDegrees = Tool.positionConvert(Double.parseDouble(Lat));
 
                             // 経度 = longitude
                             String Lon = data[Tool.COL.POSITION_LON].replace("\"", "");
-                            BigDecimal lon = Tool.positionConvert(Lon);
+                            double lonDegrees = Tool.positionConvert(Double.parseDouble(Lon));
 
                             // 高度 = altitude
                             double alt = -1;
                             if (processedLineCount % skipAltitudeGetter == 0) {
                                 // String alt = data[Tool.col_altitude].replace("\"","");
-                                alt = api.getAltitude(lat.doubleValue(), lon.doubleValue());
+                                alt = api.getAltitude(latDegrees, lonDegrees);
                             }
 
                             // CSV書き出し
@@ -154,16 +153,16 @@ class CsvToGpx {
                                 writer.write(
                                         Tool.fitTimeToTokyo(timestamp) + ","
                                                 + segment + ","
-                                                + lat.toPlainString() + ","
-                                                + lon.toPlainString() + ","
+                                                + String.valueOf(latDegrees) + ","
+                                                + String.valueOf(lonDegrees) + ","
                                                 + altString + "\n");
 
                             }
 
                             // gpxの各行構成
                             Element trkpt = doc.createElement("trkpt");
-                            trkpt.setAttribute("lat", lat.toPlainString());
-                            trkpt.setAttribute("lon", lon.toPlainString());
+                            trkpt.setAttribute("lat", String.valueOf(latDegrees));
+                            trkpt.setAttribute("lon", String.valueOf(lonDegrees));
                             if (alt != -1) {
                                 Element ele = doc.createElement("ele");
                                 ele.appendChild(doc.createTextNode(String.valueOf(alt)));
