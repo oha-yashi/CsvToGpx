@@ -1,9 +1,10 @@
 package src;
 
-import java.io.BufferedReader;
-import java.io.IOException;
-import java.io.InputStream;
-import java.io.InputStreamReader;
+// ヘルプ削除@0520
+// import java.io.BufferedReader;
+// import java.io.IOException;
+// import java.io.InputStream;
+// import java.io.InputStreamReader;
 import java.math.BigDecimal;
 import java.math.RoundingMode;
 import java.time.Instant;
@@ -89,19 +90,21 @@ public class Tool {
     }
 
     /**
+     * ヘルプ機能は削除@0520
      * https://qiita.com/atmospheri/items/8cee0cc2ab7de5a9b46e
+     *
      */
-    public static void openHelp() {
-        String path = "com/ohayashi/csvtogpx/help.txt";
-        InputStream is = ClassLoader.getSystemResourceAsStream(path);
-        try (BufferedReader br = new BufferedReader(new InputStreamReader(is, "UTF-8"))) {
-            String line;
-            while ((line = br.readLine()) != null) {
-                System.out.println(line);
-            }
-        } catch (IOException e) {
-            // TODO Auto-generated catch block
-            e.printStackTrace();
-        }
-    }
+    // public static void openHelp() {
+    //     String path = "com/ohayashi/csvtogpx/help.txt";
+    //     InputStream is = ClassLoader.getSystemResourceAsStream(path);
+    //     try (BufferedReader br = new BufferedReader(new InputStreamReader(is, "UTF-8"))) {
+    //         String line;
+    //         while ((line = br.readLine()) != null) {
+    //             System.out.println(line);
+    //         }
+    //     } catch (IOException e) {
+    //         // TODO Auto-generated catch block
+    //         e.printStackTrace();
+    //     }
+    // }
 }

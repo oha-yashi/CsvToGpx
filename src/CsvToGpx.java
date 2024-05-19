@@ -56,7 +56,10 @@ class CsvToGpx {
         try {
             settingScan(outputFileName);
         } catch (Exception e) { // ヘルプを出して、終わり
-            Tool.openHelp();
+            // ヘルプ削除@0520
+            // Tool.openHelp();
+            System.err.println("エラーが発生しました\n");
+            
             return;
         }
 
@@ -229,14 +232,17 @@ class CsvToGpx {
      */
     private static void settingScan(outputFileName outputFileName) throws Exception {
         while (outputFileName.isEmpty()) {
-            System.out.println("if you need help, type \"help\" below.");
+            // ヘルプ削除@0520
+            // System.out.println("if you need help, type \"help\" below.");
             System.out.print("output filename ???.csv >>> ");
             String scan = scanner.nextLine();
-            if (scan.equals("help")) {
-                throw new Exception("help is called");
-            } else {
-                outputFileName.set(scan);
-            }
+            // ヘルプ削除@0520
+            // if (scan.equals("help")) {
+            //     throw new Exception("help is called");
+            // } else {
+            //     outputFileName.set(scan);
+            // }
+            outputFileName.set(scan);
         }
 
         System.out.print("Pick up every ? points >>> ");
