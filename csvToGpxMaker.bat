@@ -12,10 +12,11 @@ echo delete jar file if it exsit
 if exist %JAR_NAME% del %JAR_NAME%
 
 rem echo delete class files
-rem del %APP_DIR%\*.class
+del %APP_DIR%\*.class
 
 echo make class files
-call javac --release %RELEASE_VERSION% %APP_DIR%\%MAIN_CLASS%.java
+call javac %APP_DIR%\%MAIN_CLASS%.java
+rem call javac --release %RELEASE_VERSION% %APP_DIR%\%MAIN_CLASS%.java
 rem メインのCsvEdit.javaだけコンパイルにかければ依存関係にある他のjavaからclassができる
 
 echo make jar

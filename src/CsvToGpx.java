@@ -48,7 +48,7 @@ class CsvToGpx {
      * @param args
      */
     public static void main(String[] args) {
-        System.out.println("CsvEdit ver 20240509");
+        System.out.println("CsvEdit ver " + Tool.VERSION_NUM);
         scanner = new Scanner(System.in);
 
         sortArgs(args);
@@ -87,6 +87,7 @@ class CsvToGpx {
                     continue; // 飛ばす
                 int lineCount = -1; // 行を読み込んだ数
                 int processedLineCount = -1; // 処理された行の数
+                double distance = -1.0; // ワープ防止@0521
 
                 try {
                     File file = new File(filename);
@@ -108,6 +109,19 @@ class CsvToGpx {
                             lineCount++; // -1始まりなので最初に0になる
                             if (lineCount % shrink != 0)
                                 continue; // shrinkの倍数のlineCountだけ読む
+                            double nowDistance = Double.parseDouble(data[Tool.COL.DISTANCE].split("\"")[1]);
+                            if (nowDistance == distance) {
+                                /*
+                                 * ワープ防止@0521
+                                 * distance が変わらないときスキップする。トンネル内ではGPS情報が更新されないが時間だけ進むので
+                                 * トンネル入口で何秒か停止して出口にワープしたような挙動になりそこだけ異常な速度が出る
+                                 * 停止している状態を排除することでワープがなくなる
+                                 */
+                                continue;
+                            } else {
+                                distance = nowDistance;
+                            }
+                            
                             processedLineCount++; // 飛ばされずに処理される行数
 
                             /*

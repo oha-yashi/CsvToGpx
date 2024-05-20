@@ -12,6 +12,7 @@ import java.time.temporal.ChronoUnit;
 
 public class Tool {
     final static String MY_NAME = "ohayashi";
+    final static int VERSION_NUM = 20240521;
 
     final static int FIT_TIME_ZERO = 631065600;
     final static double POW2_31 = 0x80000000L; // 1000 0000 0000 0000 0000 0000 0000 0000 (2)
@@ -20,6 +21,7 @@ public class Tool {
     final static int SHRINK_DEFAULT = 5;
     final static boolean WANT_CSV_DEFAULT = false;
     final static int SEGMENT_LIMIT_MIN_SEC = 300;
+    final static double SPEED_NEARY_ZERO = 0.2; // 停止・スキップするスピード
 
     /**
      * 読み込むcsvの1行のサイズ（実測値）
