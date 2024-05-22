@@ -13,3 +13,4 @@ java -jar CsvToGpx.jar
 
 windowsなら、CsvToGpx.batをダブルクリックでも同様に起動します。
 
+Java8で動くようにしたいがうまくいかないっぽい
