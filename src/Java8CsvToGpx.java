@@ -100,9 +100,10 @@ class Java8CsvToGpx {
                     System.out.println("start reading \"" + fnSplit[fnSplit.length - 1] + "\" : " + processSize + "points");
 
                     Scanner fileScanner = new Scanner(file);
+                    ColumnData cd = new ColumnData();
                     // 各行の操作
                     System.out.println(String.valueOf(fileScanner.hasNextLine()));
-                    // ここがうまく動かない
+                    // TODO: ここがうまく動かない
                     while (fileScanner.hasNextLine()) {
                         /*
                          * 余談
@@ -114,7 +115,7 @@ class Java8CsvToGpx {
                             lineCount++; // -1始まりなので最初に0になる
                             if (lineCount % shrink != 0)
                                 continue; // shrinkの倍数のlineCountだけ読む
-                            double nowDistance = Double.parseDouble(data[Tool.COL.DISTANCE].split("\"")[1]);
+                            double nowDistance = Double.parseDouble(data[cd.getCol_distance()].split("\"")[1]);
                             if (nowDistance == distance) {
                                 /*
                                  * ワープ防止@0521
@@ -137,7 +138,7 @@ class Java8CsvToGpx {
                             System.out.print("\b\b\b\b\b\b" + percentage + "%");
 
                             // タイムスタンプ
-                            Integer timestamp = Integer.parseInt(data[Tool.COL.TIMESTAMP].split("\"")[1]);
+                            Integer timestamp = Integer.parseInt(data[cd.getCol_timestamp()].split("\"")[1]);
                             // segment
                             if (timestamp > lastTime + segmentLimit) {
                                 // セグメントが変わったとき
@@ -154,11 +155,11 @@ class Java8CsvToGpx {
                             lastTime = timestamp;
 
                             // 緯度 = latitude
-                            String Lat = data[Tool.COL.POSITION_LAT].replace("\"", "");
+                            String Lat = data[cd.getCol_position_lat()].replace("\"", "");
                             double latDegrees = Tool.positionConvert(Double.parseDouble(Lat));
 
                             // 経度 = longitude
-                            String Lon = data[Tool.COL.POSITION_LON].replace("\"", "");
+                            String Lon = data[cd.getCol_position_lon()].replace("\"", "");
                             double lonDegrees = Tool.positionConvert(Double.parseDouble(Lon));
 
                             // 高度 = altitude

@@ -39,17 +39,17 @@ public class Tool {
      * int : 列番号
      * String : 単位情報
      */
-    public class COL {
-        final static int TIMESTAMP = 4;
-        final static int POSITION_LAT = 7;
-        final static int POSITION_LON = 10;
-        final static int DISTANCE = 13;
-        final static int ALTITUDE = 16;
-        final static int SPEED = 19;
-        final static int TEMPRATURE = 22;
-        final static String UNIT_SEMI = "semicircles";
-        final static String UNIT_DEG = "degrees";
-    }
+    // public class COL {
+    //     final static int TIMESTAMP = 4;
+    //     final static int POSITION_LAT = 7;
+    //     final static int POSITION_LON = 10;
+    //     final static int DISTANCE = 13;
+    //     final static int ALTITUDE = 16;
+    //     final static int SPEED = 19;
+    //     final static int TEMPRATURE = 22;
+    //     final static String UNIT_SEMI = "semicircles";
+    //     final static String UNIT_DEG = "degrees";
+    // }
 
     /**
      * @param timestamp by FIT
